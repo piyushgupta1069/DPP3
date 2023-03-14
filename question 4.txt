@@ -1,0 +1,22 @@
+// User function Template for C++
+
+class Solution{
+public:
+    int solve(int i, int j, int n, int arr[], vector<vector<int>>&dp)
+    {
+        if(i>=j)return 0;
+        if(dp[i][j]!=-1)return dp[i][j];
+        int ans = 1e9;
+        for(int k=i;k<j;k++)
+        {
+            ans = min(ans, arr[i-1]*arr[k]*arr[j]+solve(i,k,n,arr,dp)+solve(k+1,j,n,arr,dp));
+        }
+        return dp[i][j]=ans;
+    }
+    int matrixMultiplication(int n, int arr[])
+    {
+        // code here
+        vector<vector<int>>dp(n,vector<int>(n,-1));
+        return solve(1,n-1,n,arr,dp);
+    }
+};
