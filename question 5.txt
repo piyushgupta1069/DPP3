@@ -1,0 +1,21 @@
+int solve(int floor, int egg, vector<vector<int>>&dp)
+    {
+        if(floor==1||floor==0)return floor;
+        if(egg==1) return floor;
+        if(dp[floor][egg]!=-1)
+            return dp[floor][egg];
+        int res=1e9;
+        for(int i=1;i<=floor;i++)
+        {
+            int x = 1+max(solve(i-1,egg-1,dp),solve(floor-i,egg,dp));
+            res=min(res,x);
+        }
+        return dp[floor][egg]=res;
+        
+    }
+    int eggDrop(int n, int k) 
+    {
+        // your code here
+        vector<vector<int>>dp(k+1,vector<int>(n+1,-1));
+        return solve(k,n,dp);
+    }
